@@ -19,4 +19,10 @@ Build an API for the Bookmarks client supporting GET, POST and DELETE.
 
 **Checkpoint 15**
 
-Had to refactor the bookmarks-server app to use Postgres / Knex Service (instead of JS array in memory).
+Had to refactor the bookmarks-server app to use Postgres / Knex Service (instead of JS array in memory) for
+the `GET` requests (`/bookmarks` and `/bookmarks/:bookmark_id`).
+
+**Checkpoint 16**
+
+Had to refactor to use Postgres / Knex for `POST` and `DELETE` requests. Used TDD to write failing tests first
+then implemented to the routes / services to make them pass.

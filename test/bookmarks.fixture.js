@@ -1,4 +1,4 @@
-const bookmarks = [
+const testBookmarks = [
 	{
 		id: 1,
 		title: 'Thinkful',
@@ -22,4 +22,18 @@ const bookmarks = [
 	}
 ]
 
-module.exports = bookmarks
+const maliciousBookmark = {
+	title: 'Naughty naughty very naughty <script>alert("xss");</script>',
+	url: 'https://someurl.com',
+	description: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
+	rating: 3
+}
+
+const sanitizedBookmark = {
+	...maliciousBookmark,
+	title:
+		'Naughty naughty very naughty &lt;script&gt;alert("xss");&lt;/script&gt;',
+	description: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`
+}
+
+module.exports = { testBookmarks, maliciousBookmark, sanitizedBookmark }
