@@ -26,3 +26,8 @@ the `GET` requests (`/bookmarks` and `/bookmarks/:bookmark_id`).
 
 Had to refactor to use Postgres / Knex for `POST` and `DELETE` requests. Used TDD to write failing tests first
 then implemented to the routes / services to make them pass.
+
+**Checkpoint 17**
+
+Had to refactor to use Postgres / Knex for `PATCH` requests (updating existing bookmarks). Also wrote tests
+for this route.

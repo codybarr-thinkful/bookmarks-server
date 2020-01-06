@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 	res.send('Hello, world!')
 })
 
-app.use(bookmarksRouter)
+app.use('/api/bookmarks', bookmarksRouter)
 
 app.use(function errorHandler(error, req, res, next) {
 	let response

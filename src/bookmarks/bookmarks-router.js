@@ -16,7 +16,7 @@ const sanitizeBookmark = bookmark => ({
 })
 
 bookmarksRouter
-	.route('/bookmarks')
+	.route('/')
 	.get((req, res, next) => {
 		const knexInstance = req.app.get('db')
 
@@ -64,7 +64,7 @@ bookmarksRouter
 	})
 
 bookmarksRouter
-	.route('/bookmarks/:bookmark_id')
+	.route('/:bookmark_id')
 	.all((req, res, next) => {
 		BookmarksService.getById(req.app.get('db'), req.params.bookmark_id)
 			.then(bookmark => {
@@ -80,6 +80,28 @@ bookmarksRouter
 	})
 	.get((req, res, next) => {
 		res.json(sanitizeBookmark(res.bookmark))
+	})
+	.patch(jsonParser, (req, res, next) => {
+		const { title, url, description, rating } = req.body
+		const updatedBookmarkFields = { title, url, description, rating }
+
+		if (!title && !url && !description && !rating) {
+			return res.status(400).json({
+				error: {
+					message: `Request body must contain either 'title', 'url', 'description', or 'rating'`
+				}
+			})
+		}
+
+		BookmarksService.updateBookmark(
+			req.app.get('db'),
+			req.params.bookmark_id,
+			updatedBookmarkFields
+		)
+			.then(() => {
+				res.status(204).end()
+			})
+			.catch(next)
 	})
 	.delete((req, res, next) => {
 		const { bookmark_id } = req.params
