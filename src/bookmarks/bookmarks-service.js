@@ -1,6 +1,9 @@
 const BookmarksService = {
 	getAllBookmarks(knex) {
-		return knex.select('*').from('bookmarks')
+		return knex
+			.select('*')
+			.from('bookmarks')
+			.orderBy('id', 'asc')
 	},
 	getById(knex, id) {
 		return knex
