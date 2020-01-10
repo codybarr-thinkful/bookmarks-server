@@ -18,6 +18,15 @@ if (NODE_ENV !== 'test') {
 app.use(helmet())
 app.use(cors())
 
+app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*')
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept'
+	)
+	next()
+})
+
 app.use(function validateBearerToken(req, res, next) {
 	const apiToken = process.env.API_TOKEN
 	const authToken = req.get('Authorization')
